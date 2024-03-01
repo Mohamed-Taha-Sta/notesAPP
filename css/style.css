@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Life+Savers:wght@400;700;800&family=Montserrat:wght@100&family=Open+Sans:ital,wght@1,700&family=Quicksand&family=Roboto:wght@400;700&display=swap');
-
 * {
     margin: 0;
     padding: 0;
@@ -121,8 +120,6 @@ nav {
 }
 
 .reminder {
-    display: flex;
-    align-items: center;
     margin-left: 5px;
     margin-right: 5px;
     margin-bottom: 15px;
@@ -131,30 +128,43 @@ nav {
     background-color: #FFDD9F;
     border-radius: 20px;
     box-shadow: 0 5px 5px rgba(56, 56, 56, 0.3);
-    overflow: hidden;
-    transition: max-height 500ms ease-in-out;
+    height: 1.5rem;
 }
 
+.reminder:hover {
+    height: auto
+}
 
-.reminder > img {
+.reminderHeadline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reminderHeadline > img {
     margin-right: 8px;
     width: 20px;
-    padding-left: 0;
 }
 
-.reminder > p {
+.details {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 500ms;
+}
+
+.details > div {
+    overflow: hidden;
+}
+
+.reminder:hover .details {
+    grid-template-rows: 1fr;
+}
+
+.reminderHeadline > p {
     font-size: 1.2rem;
     font-weight: bolder;
 }
 
-.reminder:hover {
-    height: auto;
-}
-
-.details {
-    display: none;
-    flex-direction: column;
-}
 
 .titleNotes {
     display: flex;
