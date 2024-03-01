@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Life+Savers:wght@400;700;800&family=Montserrat:wght@100&family=Open+Sans:ital,wght@1,700&family=Quicksand&family=Roboto:wght@400;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -20,12 +21,12 @@ nav {
     background-color: rgba(88, 65, 40, 0);
     color: #584128;
     padding: 0 10%;
-    width: 70%;
+    width: 60%;
     margin: 20px auto 50px;
 }
 
 .mainContainer {
-    width: 70%;
+    width: 60%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -184,10 +185,70 @@ nav {
 }
 
 .note {
-    background-image: url("../notes/Note1.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
+    background-color: #FFDD9F;
+    border-radius: 20px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 5px 5px rgba(56, 56, 56, 0.3);
+}
+
+.NoteHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.note .noteTitle {
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.note .content {
+    font-family: Inter, sans-serif;
+    font-weight: normal;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.note .flags {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flags .flag{
+    margin-top: 0.6rem;
+    margin-right: 0.6rem;
+    border-radius: 10px;
+    background-color: #584128;
+    color: white;
+    padding: 0.5rem;
+}
+
+.flags .Urgent{
+    background-color: #ef754f;
+}
+
+.flags .DueSoon{
+    color: #584128;
+    background-color: white;
+}
+
+.noteContainer{
+    display: grid;
+    grid-template-columns: repeat(4,1fr) ;
+    grid-template-rows: repeat(4,1fr) ;
+    gap: 0.7rem;
+}
+
+.note1 {
+  grid-area: 1 / 1 / 2 / 2 ;
+}
+.note2 {
+  grid-area: 1 / 2 / 3 / 3;
+}
+.note3 {
+  grid-area: 3 / 3 / 7 / 7;
 }
 
 
