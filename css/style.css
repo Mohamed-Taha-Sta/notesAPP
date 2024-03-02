@@ -191,7 +191,7 @@ nav {
     box-shadow: 0 5px 5px rgba(56, 56, 56, 0.3);
 }
 
-.NoteHeader{
+.NoteHeader {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -216,7 +216,7 @@ nav {
     flex-wrap: wrap;
 }
 
-.flags .flag{
+.flags .flag {
     margin-top: 0.6rem;
     margin-right: 0.6rem;
     border-radius: 10px;
@@ -225,30 +225,167 @@ nav {
     padding: 0.5rem;
 }
 
-.flags .Urgent{
+.flags .Urgent {
     background-color: #ef754f;
 }
 
-.flags .DueSoon{
+.flags .DueSoon {
     color: #584128;
     background-color: white;
 }
 
-.noteContainer{
+.noteContainer {
     display: grid;
-    grid-template-columns: repeat(4,1fr) ;
-    grid-template-rows: repeat(4,1fr) ;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     gap: 0.7rem;
 }
 
-.note1 {
-  grid-area: 1 / 1 / 2 / 2 ;
+.overlay {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
 }
-.note2 {
-  grid-area: 1 / 2 / 3 / 3;
+
+.form-popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFDD9F;
+    margin: 10% auto;
+    padding: 2rem;
+    border: 1px solid #888;
+    width: 20%;
+    border-radius: 20px;
+    min-width: 20%;
 }
-.note3 {
-  grid-area: 3 / 3 / 7 / 7;
+
+.form-popup h2 {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+    font-weight: bolder;
+}
+
+.reminder-form-container input, .reminder-form-container textarea {
+    /*width: 100%;*/
+    border: none;
+    background: #f1f1f1;
+    border-radius: 10px;
+    color: #2c2109;
+    font-weight: bolder;
+    box-sizing: border-box;
+}
+
+.reminder-form-container #titleR {
+    width: 100%;
+    padding-top: 0.3rem;
+    padding-left: 0.6rem;
+    margin: 0.5rem auto;
+    font-size: 1rem;
+    height: 2rem;
+}
+
+.reminder-form-container textarea {
+    width: 100%;
+    padding-top: 0.6rem;
+    font-size: 1rem;
+    padding-left: 0.6rem;
 }
 
 
+.reminder-form-container input::placeholder, .reminder-form-container textarea::placeholder {
+    color: rgba(88, 65, 40, 0.47);
+    font-weight: bolder;
+    font-size: 0.9rem;
+}
+
+
+.reminder-form-container #detailsR {
+    word-break: break-word;
+    wrap-option: wrap;
+    min-height: 15rem;
+    max-height: 15rem;
+    resize: none;
+}
+
+
+.reminder-form-container #dateR {
+    color: #2c2109;
+    width: 60%;
+    padding-top: 0.3rem;
+    padding-left: 0.6rem;
+}
+
+
+.reminder-form-container .Color-circle {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 4px solid white;
+    cursor: pointer;
+}
+
+.reminder-form-container .color1 {
+    background-color: #FFDD9F;
+}
+
+.reminder-form-container .color2 {
+    background-color: #584128;
+}
+
+.reminder-form-container .color3 {
+    background-color: #ffffff;
+}
+
+.reminder-form-container .btn {
+    text-align: center;
+    background-color: #584128;
+    padding: 0.5rem;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.8;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 5px 5px rgba(56, 56, 56, 0.3);
+}
+
+
+.reminder-form-container .dateColors {
+    margin-top: 0.3rem;
+}
+
+.reminder-form-container .dateColors {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.btnContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.reminder-form-container .cancel {
+    background-color: #EF754F;
+}
+
+.reminder-form-container .addR {
+    margin-bottom: 10px;
+    margin-top: 1rem;
+}
+
+.reminder-form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+}

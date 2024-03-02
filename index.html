@@ -20,6 +20,28 @@
 </head>
 
 <body>
+<div id="reminder-form" class="overlay">
+    <div class="form-popup">
+        <h2>Add a Reminder</h2>
+        <form class="reminder-form-container">
+            <input type="text" placeholder="Enter Title" id="titleR" maxlength="50" required>
+            <textarea placeholder="Enter Details" id="detailsR" maxlength="300" required></textarea>
+            <div class="dateColors">
+                <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="dateR"
+                       placeholder="Enter Date" required>
+                <div class="colors">
+                    <span class="Color-circle color1" tabindex="0"></span>
+                    <span class="Color-circle color2" tabindex="0"></span>
+                    <span class="Color-circle color3" tabindex="0"></span>
+                </div>
+            </div>
+            <div class="btnContainer">
+                <a type="submit" class="btn addR">Add</a>
+                <a type="button" class="btn cancel" onclick="closeForm()">Close</a>
+            </div>
+        </form>
+    </div>
+</div>
 <nav>
     <a><span class="maintitle"> Organiz<strong>ed</strong>.</span></a>
     <div class="nav-links">
@@ -35,7 +57,7 @@
                 <img src="icons/icon%20_bell.png" alt="Today's reminders"> <!-- Add icon here -->
                 <h1>Today's Reminders</h1>
             </div>
-            <a class="add" href="">
+            <a class="add add-reminder" href="">
                 <div class="right">
                     <img src="icons/plus%20circle_.png" alt="Add Reminder"> <!-- Add icon here -->
                     <p>Add Reminder</p>
