@@ -69,12 +69,6 @@ nav {
     transform-origin: bottom left;
 }
 
-.titleReminder {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
 
 .left {
     display: flex;
@@ -115,31 +109,50 @@ nav {
     background-color: #2c2109;
 }
 
+.titleReminder {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .reminders {
     display: flex;
     flex-wrap: wrap;
 }
 
 .reminder {
+    display: flex;
+    flex-direction: column;
+    /*flex-wrap: wrap;*/
+    overflow: hidden;
     margin-left: 5px;
     margin-right: 5px;
     margin-bottom: 15px;
     padding: 10px 20px;
     width: 10rem;
+    height: 1.5rem;
     background-color: #FFDD9F;
+    color: #584128;
     border-radius: 20px;
     box-shadow: 0 5px 5px rgba(56, 56, 56, 0.3);
-    height: 1.5rem;
+
 }
 
 .reminder:hover {
-    height: auto
+    height: auto;
+}
+
+.reminder:hover .reminderHeadline {
+    flex-wrap: wrap;
 }
 
 .reminderHeadline {
     display: flex;
-    justify-content: center;
-    align-items: center;
+        /*flex-wrap: wrap;*/
+    /*justify-content: c;*/
+    /*flex-direction: column;*/
+    align-items: flex-start;
 }
 
 .reminderHeadline > img {
@@ -151,6 +164,7 @@ nav {
     display: grid;
     grid-template-rows: 0fr;
     transition: grid-template-rows 500ms;
+    visibility: hidden;
 }
 
 .details > div {
@@ -159,6 +173,7 @@ nav {
 
 .reminder:hover .details {
     grid-template-rows: 1fr;
+    visibility: visible;
 }
 
 .reminderHeadline > p {
