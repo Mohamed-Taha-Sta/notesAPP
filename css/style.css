@@ -150,11 +150,12 @@ nav {
 
 .reminder:hover {
     height: auto;
+    .reminderHeadline > p {
+    overflow: visible;
+    white-space: normal;
+}
 }
 
-.reminder:hover .reminderHeadline {
-    /*flex-wrap: wrap;*/
-}
 
 .reminderHeadline {
     display: flex;
@@ -195,10 +196,7 @@ nav {
     white-space: nowrap;
 }
 
-.reminderHeadline > p:hover {
-    overflow: visible;
-    white-space: normal;
-}
+
 
 .menu{
     display: flex;
@@ -393,6 +391,10 @@ nav {
     background-color: #ffffff;
 }
 
+.reminder-form-container .selectedColor{
+    border: 4px solid #FF8A00FF;
+}
+
 .reminder-form-container .btn {
     text-align: center;
     background-color: #584128;
@@ -418,6 +420,10 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.reminder-form-container .dateColors .colors{
+        padding-left: 0.5rem;
 }
 
 .btnContainer {
