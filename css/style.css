@@ -130,7 +130,7 @@ nav {
     margin-right: 5px;
     margin-bottom: 15px;
     padding: 10px 20px;
-    width: 15rem;
+    width: 12rem;
     height: 1.5rem;
     background-color: #FFDD9F;
     color: #584128;
@@ -153,7 +153,7 @@ nav {
 }
 
 .reminder:hover .reminderHeadline {
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
 }
 
 .reminderHeadline {
@@ -170,6 +170,7 @@ nav {
 }
 
 .details {
+    padding-top: 0.5rem;
     display: grid;
     grid-template-rows: 0fr;
     transition: grid-template-rows 500ms;
@@ -188,8 +189,16 @@ nav {
 .reminderHeadline > p {
     font-size: 1.2rem;
     font-weight: bolder;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
+.reminderHeadline > p:hover {
+    overflow: visible;
+    white-space: normal;
+}
 
 .menu{
     display: flex;
