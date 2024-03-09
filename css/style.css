@@ -130,13 +130,22 @@ nav {
     margin-right: 5px;
     margin-bottom: 15px;
     padding: 10px 20px;
-    width: 10rem;
+    width: 15rem;
     height: 1.5rem;
     background-color: #FFDD9F;
     color: #584128;
     border-radius: 20px;
     box-shadow: 0 5px 5px rgba(56, 56, 56, 0.3);
 
+}
+
+.darkReminder {
+    background-color: #584128;
+    color: #ffffff;
+
+    > .reminderHeadline > img {
+        filter: brightness(0) invert(1);
+    }
 }
 
 .reminder:hover {
@@ -149,7 +158,7 @@ nav {
 
 .reminderHeadline {
     display: flex;
-        /*flex-wrap: wrap;*/
+    /*flex-wrap: wrap;*/
     /*justify-content: c;*/
     /*flex-direction: column;*/
     align-items: flex-start;
@@ -179,6 +188,21 @@ nav {
 .reminderHeadline > p {
     font-size: 1.2rem;
     font-weight: bolder;
+}
+
+
+.menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    > .removeReminder{
+        cursor: pointer;
+        rotate: 45deg;
+    }
+
 }
 
 
