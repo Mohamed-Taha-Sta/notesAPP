@@ -2,11 +2,6 @@ window.onload = function () {
     Reminder.loadReminders();
 };
 
-document.querySelector('.add-reminder').addEventListener('click', function (e) {
-    e.preventDefault();
-    document.getElementById('reminder-form').style.display = 'block';
-});
-
 class Reminder {
     constructor(title, details, date, color) {
         this.title = title;
@@ -18,6 +13,7 @@ class Reminder {
     createReminder() {
         const reminder = document.createElement('div');
         reminder.classList.add('reminder');
+        const formattedDetails = this.details.replace(/\n/g, '<br>');
         reminder.style.backgroundColor = this.color;
         const imgSrc = this.color !== "rgb(88, 65, 40)" ? "icons/brown-plus.png" : "icons/plus-circle.png";
         reminder.innerHTML = `
@@ -27,7 +23,7 @@ class Reminder {
                 </div>
                 <div class="details">
                     <div>
-                        <p>${this.details}</p>
+                        <p>${formattedDetails}</p>
                     </div>
                     <div class="menu">
                         <p class="dateToBeReminded">${this.date}</p>
@@ -121,24 +117,74 @@ document.querySelector('.reminders').addEventListener('click', function (e) {
     }
 });
 
+function highlightEmptyField(element, errorMessage) {
+    const errorElement = document.getElementById("ErrorReminderAdd");
+    const formPopup = document.querySelector(".form-popup");
+    if (element.value.trim() === '') {
+        element.style.border = '3px solid #ef754f';
+        errorElement.innerHTML = errorMessage;
+        formPopup.classList.add("jiggle");
+        setTimeout(() => formPopup.classList.remove("jiggle"), 200);
+    } else {
+        element.style.border = '';
+        errorElement.textContent = '';
+    }
+}
 
 document.querySelector('.addR').addEventListener('click', function (e) {
-    // Read the values from the form and create a new reminder
     e.preventDefault();
-    const title = document.getElementById('titleR').value.trim();
-    const details = document.getElementById('detailsR').value.trim();
-    const date = document.getElementById('dateR').value.trim();
-    // const color = document.querySelector('.selectedColor').style.backgroundColor;
-    const color = window.getComputedStyle(document.querySelector('.selectedColor')).backgroundColor;
+
+    const titleElement = document.getElementById('titleR');
+    const detailsElement = document.getElementById('detailsR');
+    const dateElement = document.getElementById('dateR');
+    const colorElement = document.querySelector('.selectedColor');
+
+    const title = titleElement.value.trim();
+    const details = detailsElement.value.trim();
+    const date = dateElement.value.trim();
+    const color = window.getComputedStyle(colorElement).backgroundColor;
+
+
+    if (!date) {
+        highlightEmptyField(dateElement, 'Date is required');
+    } else {
+        dateElement.style.border = '';
+    }
+
+    if (!details) {
+        highlightEmptyField(detailsElement, 'Details are required');
+    } else {
+        detailsElement.style.border = '';
+    }
+
+    if (!title) {
+        highlightEmptyField(titleElement, 'Title is required');
+    } else {
+        titleElement.style.border = '';
+    }
+
+    // highlightEmptyField(dateElement, 'Date is required');
+    // highlightEmptyField(detailsElement, 'Details are required');
+    // highlightEmptyField(titleElement, 'Title is required');
+    if (!color) {
+        colorElement.style.border = '2px solid red';
+    } else {
+        colorElement.style.border = '';
+    }
+
     if (!title || !details || !date || !color) {
-        alert('Please fill in all the fields.');
         return;
     }
+
     const reminder = new Reminder(title, details, date, color);
     reminder.createReminder();
     reminder.saveReminder();
-})
+});
 
+document.querySelector('.add-reminder').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('reminder-form').style.display = 'block';
+});
 
 function closeForm() {
     document.getElementById('reminder-form').style.display = 'none';

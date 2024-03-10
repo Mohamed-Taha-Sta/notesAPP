@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Life+Savers:wght@400;700;800&family=Montserrat:wght@100&family=Open+Sans:ital,wght@1,700&family=Quicksand&family=Roboto:wght@400;700&display=swap');
 
+@keyframes jiggle {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    50% { transform: translateX(0); }
+    75% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -308,9 +316,13 @@ nav {
     margin: 10% auto;
     padding: 2rem;
     border: 1px solid #888;
-    width: 20%;
+    width: 20rem;
     border-radius: 20px;
     min-width: 20%;
+}
+
+.form-popup.jiggle {
+    animation: jiggle 0.2s linear;
 }
 
 .form-popup h2 {
@@ -438,6 +450,17 @@ nav {
 .reminder-form-container .addR {
     margin-bottom: 10px;
     margin-top: 1rem;
+}
+
+#ErrorReminderAdd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.47);
+    font-size: 1em;
+    opacity: 1;
+    padding-top: 1rem;
+    font-weight: bolder;
 }
 
 .reminder-form-container .btn:hover, .open-button:hover {
