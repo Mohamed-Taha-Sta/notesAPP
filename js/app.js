@@ -1,5 +1,6 @@
 window.onload = function () {
     Reminder.loadReminders();
+    Note.loadNotes();
 };
 
 class Reminder {
@@ -117,20 +118,6 @@ document.querySelector('.reminders').addEventListener('click', function (e) {
     }
 });
 
-function highlightEmptyField(element, errorMessage) {
-    const errorElement = document.getElementById("ErrorReminderAdd");
-    const formPopup = document.querySelector(".form-popup");
-    if (element.value.trim() === '') {
-        element.style.border = '3px solid #ef754f';
-        errorElement.innerHTML = errorMessage;
-        formPopup.classList.add("jiggle");
-        setTimeout(() => formPopup.classList.remove("jiggle"), 200);
-    } else {
-        element.style.border = '';
-        errorElement.textContent = '';
-    }
-}
-
 document.querySelector('.addR').addEventListener('click', function (e) {
     e.preventDefault();
 
@@ -144,35 +131,19 @@ document.querySelector('.addR').addEventListener('click', function (e) {
     const date = dateElement.value.trim();
     const color = window.getComputedStyle(colorElement).backgroundColor;
 
-
-    if (!date) {
-        highlightEmptyField(dateElement, 'Date is required');
-    } else {
-        dateElement.style.border = '';
-    }
-
-    if (!details) {
-        highlightEmptyField(detailsElement, 'Details are required');
-    } else {
-        detailsElement.style.border = '';
-    }
-
     if (!title) {
-        highlightEmptyField(titleElement, 'Title is required');
+        highlightEmptyField(titleElement, 'Title is required', 'reminder');
     } else {
         titleElement.style.border = '';
     }
 
-    // highlightEmptyField(dateElement, 'Date is required');
-    // highlightEmptyField(detailsElement, 'Details are required');
-    // highlightEmptyField(titleElement, 'Title is required');
     if (!color) {
         colorElement.style.border = '2px solid red';
     } else {
         colorElement.style.border = '';
     }
 
-    if (!title || !details || !date || !color) {
+    if (!title) {
         return;
     }
 
@@ -214,5 +185,218 @@ circles.forEach(function (circle) {
 });
 
 
+const noteCircles = document.querySelectorAll('.note-form-container .Color-circle');
+// Add a click event listener to each circle
+noteCircles.forEach(function (circle) {
+    circle.addEventListener('click', function () {
+        // Remove the focus border from all circles
+        noteCircles.forEach(function (c) {
+            c.style.border = '4px solid white';
+            c.classList.remove("selectedColor")
+        });
+        this.classList.add("selectedColor");
+        this.style.border = '4px solid #FF8A00FF';
+    });
+});
 
+document.querySelector('.add-note').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('note-form').style.display = 'block';
+});
+
+// Get the overlay and the close button
+const noteOverlay = document.getElementById('note-form');
+const closeButton = document.querySelector('.note-form-container .cancel');
+
+// Add an event listener to the overlay
+noteOverlay.addEventListener('click', function (e) {
+    // If the target of the click event is the overlay, close the form
+    if (e.target === noteOverlay) {
+        noteOverlay.style.display = 'none';
+    }
+});
+
+// Add an event listener to the close button
+closeButton.addEventListener('click', function () {
+    // Close the form
+    noteOverlay.style.display = 'none';
+});
+
+class Note {
+    constructor(title, details, date, flags, color) {
+        this.title = title;
+        this.details = details;
+        this.date = date;
+        this.flags = flags;
+        this.color = color;
+    }
+
+    createNote() {
+        // Create a new note element
+        const note = document.createElement('div');
+        note.classList.add('note');
+        note.style.backgroundColor = this.color;
+        const imgSrc = this.color !== "rgb(88, 65, 40)" ? "icons/settingsIcon.svg" : "icons/lightSettingsIcon.svg";
+
+        // Set the innerHTML of the note
+        note.innerHTML = `
+            <div class="NoteHeader">
+                <p class="noteTitle">${this.title}</p>
+                <div class="settings-icon-container">
+                     <img src="${imgSrc}" alt="settings">
+                </div>
+            </div>
+            <p class="content">${this.details}</p>
+            <div class="flags">
+                ${this.flags.map(flag => `<div class="flag ${flag}">${flag}</div>`).join('')}
+            </div>
+        `;
+
+        if (this.color === "rgb(88, 65, 40)") {
+            note.classList.add('darkNote');
+        }
+
+        // Append the note to the note container
+        const noteContainer = document.querySelector('.noteContainer');
+        noteContainer.appendChild(note);
+    }
+
+    saveNote() {
+        // Get the existing notes from localStorage
+        let notes = localStorage.getItem('notes');
+
+        // If notes is null, initialize an empty array, else parse the JSON string to an array
+        notes = notes ? JSON.parse(notes) : [];
+
+        // Add the new note to the array
+        notes.push(this);
+
+        // Write the array back to localStorage
+        localStorage.setItem('notes', JSON.stringify(notes));
+    }
+
+    static loadNotes() {
+        // Get the existing notes from localStorage
+        let notes = localStorage.getItem('notes');
+
+        // Get the notes container
+        const notesContainer = document.querySelector('.noteContainer');
+
+        // If notes is not null, parse the JSON string to an array
+        if (notes) {
+            notes = JSON.parse(notes);
+
+            // If there are no notes, display a message
+            if (notes.length === 0) {
+                notesContainer.innerHTML = '<p class="no-notes" style="text-align: center; padding: 20px;">There are no notes yet. Maybe add some?</p>';
+            } else {
+                // Create a new note for each item in the array
+                notes.forEach(noteData => {
+                    const note = new Note(noteData.title, noteData.details, noteData.date, noteData.flags, noteData.color);
+                    note.createNote();
+                });
+            }
+        } else {
+            // If notes is null, display a message
+            notesContainer.innerHTML = '<p class="no-notes" style="text-align: center; padding: 20px;">There are no notes yet. Maybe add some?</p>';
+        }
+    }
+}
+
+document.querySelector('.addN').addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const titleElement = document.getElementById('titleN');
+    const detailsElement = document.getElementById('detailsN');
+    const dateElement = document.getElementById('dateN');
+    const flags = Array.from(document.querySelectorAll('.note-form-container .flag:checked')).map(flag => flag.value);
+    const colorElement = document.querySelector('.note-form-container .selectedColor');
+
+    const title = titleElement.value.trim();
+    const details = detailsElement.value.trim();
+    const date = dateElement.value.trim();
+    const color = window.getComputedStyle(colorElement).backgroundColor;
+
+    if (!title) {
+        highlightEmptyField(titleElement, 'Title is required', 'note');
+        return;
+    }
+
+    const note = new Note(title, details, date, flags, color);
+    note.createNote();
+    note.saveNote();
+});
+
+function highlightEmptyField(element, errorMessage, type) {
+    let errorElement;
+    let formPopup;
+    if (type === "reminder") {
+        errorElement = document.getElementById("ErrorReminderAdd");
+        formPopup = document.querySelector("#reminder-form .form-popup");
+    } else {
+        errorElement = document.getElementById("ErrorNoteAdd");
+        formPopup = document.querySelector("#note-form .form-popup");
+    }
+    if (element.value.trim() === '') {
+        element.style.border = '3px solid #ef754f';
+        errorElement.innerHTML = errorMessage;
+        formPopup.classList.add("jiggle");
+        setTimeout(() => formPopup.classList.remove("jiggle"), 200);
+    } else {
+        element.style.border = '';
+        errorElement.textContent = '';
+    }
+}
+
+// Add a click event listener to the noteContainer
+// document.querySelector('.noteContainer').addEventListener('click', function (e) {
+//     // Find the closest ancestor of the clicked element (or the clicked element itself) which has the class settings-icon-container
+//     const settingsIconContainer = e.target.closest('.settings-icon-container');
+//     // If such an element exists
+//     if (settingsIconContainer) {
+//
+//         // Create a new dropdown menu element
+//         const dropdownMenu = document.createElement('div');
+//         dropdownMenu.classList.add('dropdown-menu');
+//
+//         // Create the "Edit" and "Delete" options
+//         const editOption = document.createElement('div');
+//         editOption.classList.add('option');
+//         editOption.innerText = 'Edit';
+//         const deleteOption = document.createElement('div');
+//         deleteOption.classList.add('option');
+//         deleteOption.innerText = 'Delete';
+//
+//         // Append the options to the dropdown menu
+//         dropdownMenu.appendChild(editOption);
+//         dropdownMenu.appendChild(deleteOption);
+//
+//         // Append the dropdown menu to the note
+//         settingsIconContainer.parentElement.appendChild(dropdownMenu);
+//
+//         // Add click event listeners to the options
+//         editOption.addEventListener('click', function () {
+//             // Call a function to edit the note
+//             editNote(settingsIconContainer.parentElement);
+//         });
+//         deleteOption.addEventListener('click', function () {
+//             // Call a function to delete the note
+//             deleteNote(settingsIconContainer.parentElement);
+//         });
+//     }
+// });
+//
+// document.addEventListener('click', function (e) {
+//     // Get the dropdown menu
+//     const dropdownMenu = document.querySelector('.dropdown-menu');
+//
+//     console.log('Clicked on the document'); // Add this line
+//
+//     // If the dropdown menu exists and the click event target is not inside the dropdown menu
+//     if (dropdownMenu && !dropdownMenu.contains(e.target)) {
+//         console.log('Clicked outside the dropdown menu'); // Add this line
+//         // Hide the dropdown menu
+//         dropdownMenu.style.display = 'none';
+//     }
+// });
 

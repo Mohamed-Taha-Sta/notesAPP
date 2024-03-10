@@ -25,10 +25,10 @@
         <h2>Add a Reminder</h2>
         <form class="reminder-form-container">
             <input type="text" placeholder="Enter Title" id="titleR" maxlength="50" required>
-            <textarea placeholder="Enter Details" id="detailsR" maxlength="300" required></textarea>
+            <textarea placeholder="Enter Details" id="detailsR" maxlength="300"></textarea>
             <div class="dateColors">
                 <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="dateR"
-                       placeholder="Enter Date" required>
+                       placeholder="Enter Date">
                 <div class="colors">
                     <div class="selectedColor Color-circle color1" tabindex="0"></div>
                     <div class="Color-circle color2" tabindex="0"></div>
@@ -38,6 +38,37 @@
             <div class="btnContainer">
                 <div id="ErrorReminderAdd"></div>
                 <a type="submit" class="btn addR">Add</a>
+                <a type="button" class="btn cancel" onclick="closeForm()">Close</a>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="note-form" class="overlay">
+    <div class="form-popup">
+        <h2>Add a Note</h2>
+        <form class="note-form-container">
+            <input type="text" placeholder="Enter Title" id="titleN" maxlength="50" required>
+            <textarea placeholder="Enter Note" id="detailsN" maxlength="300"></textarea>
+
+            <div class="dateColors">
+                <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="dateN"
+                       placeholder="Enter Date">
+                <div class="colors">
+                    <div class="selectedColor Color-circle color1" tabindex="0"></div>
+                    <div class="Color-circle color2" tabindex="0"></div>
+                    <div class="Color-circle color3" tabindex="0"></div>
+                </div>
+            </div>
+            <div class="flags">
+                <input type="checkbox" id="workFlag" class="flag" value="Work"><label for="workFlag"> Work</label>
+                <input type="checkbox" id="urgentFlag" class="flag" value="Urgent"><label for="urgentFlag">
+                Urgent</label>
+                <input type="checkbox" id="dueSoonFlag" class="flag" value="DueSoon"><label for="dueSoonFlag">
+                DueSoon</label>
+            </div>
+            <div class="btnContainer">
+                <div id="ErrorNoteAdd"></div>
+                <a type="submit" class="btn addN">Add</a>
                 <a type="button" class="btn cancel" onclick="closeForm()">Close</a>
             </div>
         </form>
@@ -76,7 +107,7 @@
                     <img src="icons/Notes_.png" alt="Pending Notes"> <!-- Add icon here -->
                     <h1>Pending Notes</h1>
                 </div>
-                <a href="">
+                <a class="add-note" href="">
                     <div class="add right">
                         <img src="icons/plus-circle.png" alt="Add Note"> <!-- Add icon here -->
                         <p class="addNote">Add Note</p>
@@ -84,86 +115,6 @@
                 </a>
             </div>
             <div class="noteContainer">
-                <div class="note note1">
-                    <div class="NoteHeader">
-                        <p class="noteTitle">Note Title</p>
-                        <img src="icons/settingsIcon.svg" alt="settings">
-                    </div>
-                    <p class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                    </p>
-                    <div class="flags">
-                        <div class="flag Work">Work</div>
-                        <div class="flag Urgent">Urgent</div>
-                        <div class="flag DueSoon">DueSoon</div>
-                    </div>
-                </div>
-                <div class="note note2">
-                    <div class="NoteHeader">
-                        <p class="noteTitle">Note Title</p>
-                        <img src="icons/settingsIcon.svg" alt="settings">
-                    </div>
-                    <p class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                    </p>
-                    <div class="flags">
-                        <div class="flag Work">Work</div>
-                        <div class="flag Urgent">Urgent</div>
-                        <div class="flag DueSoon">DueSoon</div>
-                    </div>
-                </div>
-                <div class="note note3">
-                    <div class="NoteHeader">
-                        <p class="noteTitle">Note Title</p>
-                        <img src="icons/settingsIcon.svg" alt="settings">
-                    </div>
-                    <p class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                    </p>
-                    <div class="flags">
-                        <div class="flag Work">Work</div>
-                        <div class="flag Urgent">Urgent</div>
-                        <div class="flag DueSoon">DueSoon</div>
-                    </div>
-                </div>
-                <div class="note note4">
-                    <div class="NoteHeader">
-                        <p class="noteTitle">Note Title</p>
-                        <img src="icons/settingsIcon.svg" alt="settings">
-                    </div>
-                    <p class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                    </p>
-                    <div class="flags">
-                        <div class="flag Work">Work</div>
-                        <div class="flag Urgent">Urgent</div>
-                        <div class="flag DueSoon">DueSoon</div>
-                    </div>
-                </div>
-                <div class="note note5">
-                    <div class="NoteHeader">
-                        <p class="noteTitle">Note Title</p>
-                        <img src="icons/settingsIcon.svg" alt="settings">
-                    </div>
-                    <p class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, dolores?
-                    </p>
-                    <div class="flags">
-                        <div class="flag Work">Work</div>
-                        <div class="flag Urgent">Urgent</div>
-                        <div class="flag DueSoon">DueSoon</div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
