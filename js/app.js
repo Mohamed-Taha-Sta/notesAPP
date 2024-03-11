@@ -109,12 +109,14 @@ document.querySelector('.reminders').addEventListener('click', function (e) {
             // Write the array back to localStorage
             localStorage.setItem('reminders', JSON.stringify(reminders));
         }
+
+        // Remove the reminder from the DOM
+        e.target.parentElement.parentElement.parentElement.remove();
+
         if (!document.querySelector('.reminder')) {
             const remindersContainer = document.querySelector('.reminders');
             remindersContainer.innerHTML = '<p class="no-reminders" style="text-align: center; padding: 20px;">There are no reminders yet. Maybe add some?</p>';
         }
-        // Remove the reminder from the DOM
-        e.target.parentElement.parentElement.parentElement.remove();
     }
 });
 
@@ -235,22 +237,29 @@ class Note {
         // Create a new note element
         const note = document.createElement('div');
         note.classList.add('note');
+        const formattedDetails = this.details.replace(/\n/g, '<br>');
         note.style.backgroundColor = this.color;
         const imgSrc = this.color !== "rgb(88, 65, 40)" ? "icons/settingsIcon.svg" : "icons/lightSettingsIcon.svg";
 
         // Set the innerHTML of the note
         note.innerHTML = `
-            <div class="NoteHeader">
-                <p class="noteTitle">${this.title}</p>
+        <div class="NoteHeader">
+            <p class="noteTitle">${this.title}</p>
+            <div class="dropdown">
                 <div class="settings-icon-container">
-                     <img src="${imgSrc}" alt="settings">
+                    <img src="${imgSrc}" alt="settings">
+                </div>
+                <div class="dropdown-menu">
+                    <a class="option">Edit</a>
+                    <a class="option removeNote">Delete</a>
                 </div>
             </div>
-            <p class="content">${this.details}</p>
-            <div class="flags">
-                ${this.flags.map(flag => `<div class="flag ${flag}">${flag}</div>`).join('')}
-            </div>
-        `;
+        </div>
+        <p class="content">${formattedDetails}</p>
+        <div class="flags">
+            ${this.flags.map(flag => `<div class="flag ${flag}">${flag}</div>`).join('')}
+        </div>
+    `;
 
         if (this.color === "rgb(88, 65, 40)") {
             note.classList.add('darkNote');
@@ -258,8 +267,14 @@ class Note {
 
         // Append the note to the note container
         const noteContainer = document.querySelector('.noteContainer');
+
+        if (document.querySelector('.no-notes')) {
+            noteContainer.innerHTML = '';
+        }
+
         noteContainer.appendChild(note);
     }
+
 
     saveNote() {
         // Get the existing notes from localStorage
@@ -348,55 +363,40 @@ function highlightEmptyField(element, errorMessage, type) {
     }
 }
 
-// Add a click event listener to the noteContainer
-// document.querySelector('.noteContainer').addEventListener('click', function (e) {
-//     // Find the closest ancestor of the clicked element (or the clicked element itself) which has the class settings-icon-container
-//     const settingsIconContainer = e.target.closest('.settings-icon-container');
-//     // If such an element exists
-//     if (settingsIconContainer) {
-//
-//         // Create a new dropdown menu element
-//         const dropdownMenu = document.createElement('div');
-//         dropdownMenu.classList.add('dropdown-menu');
-//
-//         // Create the "Edit" and "Delete" options
-//         const editOption = document.createElement('div');
-//         editOption.classList.add('option');
-//         editOption.innerText = 'Edit';
-//         const deleteOption = document.createElement('div');
-//         deleteOption.classList.add('option');
-//         deleteOption.innerText = 'Delete';
-//
-//         // Append the options to the dropdown menu
-//         dropdownMenu.appendChild(editOption);
-//         dropdownMenu.appendChild(deleteOption);
-//
-//         // Append the dropdown menu to the note
-//         settingsIconContainer.parentElement.appendChild(dropdownMenu);
-//
-//         // Add click event listeners to the options
-//         editOption.addEventListener('click', function () {
-//             // Call a function to edit the note
-//             editNote(settingsIconContainer.parentElement);
-//         });
-//         deleteOption.addEventListener('click', function () {
-//             // Call a function to delete the note
-//             deleteNote(settingsIconContainer.parentElement);
-//         });
-//     }
-// });
-//
-// document.addEventListener('click', function (e) {
-//     // Get the dropdown menu
-//     const dropdownMenu = document.querySelector('.dropdown-menu');
-//
-//     console.log('Clicked on the document'); // Add this line
-//
-//     // If the dropdown menu exists and the click event target is not inside the dropdown menu
-//     if (dropdownMenu && !dropdownMenu.contains(e.target)) {
-//         console.log('Clicked outside the dropdown menu'); // Add this line
-//         // Hide the dropdown menu
-//         dropdownMenu.style.display = 'none';
-//     }
-// });
+
+document.querySelector('.noteContainer').addEventListener('click', function (e) {
+    if (e.target.classList.contains('removeNote')) {
+        // Get the parent note element
+        const noteElement = e.target.closest('.note');
+
+        // Get the title of the note to be removed
+        const title = noteElement.querySelector('.noteTitle').innerText;
+
+        // Get the existing notes from localStorage
+        let notes = localStorage.getItem('notes');
+
+        // If notes is not null, parse the JSON string to an array
+        if (notes) {
+            notes = JSON.parse(notes);
+
+            // Filter the array to remove the note with the matching title
+            notes = notes.filter(note => note.title !== title);
+
+            // Write the array back to localStorage
+            localStorage.setItem('notes', JSON.stringify(notes));
+        }
+
+        // Remove the note from the DOM
+        noteElement.remove();
+
+        // Check if there are any notes left
+        if (!document.querySelector('.note')) {
+            const noteContainer = document.querySelector('.noteContainer');
+            noteContainer.innerHTML = '<p class="no-notes" style="text-align: center; padding: 20px;">There are no notes yet. Maybe add some?</p>';
+        }
+    }
+});
+
+
+
 
