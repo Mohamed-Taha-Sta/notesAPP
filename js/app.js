@@ -397,6 +397,15 @@ document.querySelector('.noteContainer').addEventListener('click', function (e) 
     }
 });
 
+// document.querySelector('.dropdown-btn').addEventListener('click', function() {
+//     var dropdownMenu = document.querySelector('.nav-links');
+//     if (dropdownMenu.style.display === 'none') {
+//         dropdownMenu.style.display = 'block';
+//     } else {
+//         dropdownMenu.style.display = 'none';
+//     }
+// });
+
 
 
 

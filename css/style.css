@@ -25,10 +25,12 @@
     text-decoration: none;
 }
 
+
 body {
     background-color: #FFEFE3;
     color: #584128;
     font-weight: bold;
+    overflow-x: hidden;
 }
 
 nav {
@@ -38,15 +40,25 @@ nav {
     min-height: 10vh;
     background-color: rgba(88, 65, 40, 0);
     color: #584128;
-    padding: 0 10%;
     width: 60%;
     margin: 20px auto 50px;
+    /*position: relative;*/
+
 }
 
 .mainContainer {
     width: 60%;
     margin-left: auto;
     margin-right: auto;
+}
+
+@media (max-width: 600px) {
+    .mainContainer {
+        width: 90%;
+    }
+    nav{
+        width: 90%;
+    }
 }
 
 .maintitle {
@@ -56,7 +68,12 @@ nav {
 
 .nav-links {
     display: flex;
+    /*flex-direction: column;*/
+    /*margin-bottom: 20px;*/
     justify-content: space-between;
+    /*position: absolute;*/
+    /*top: 100%;*/
+    /*left: 0;*/
 }
 
 .nav-links a {
