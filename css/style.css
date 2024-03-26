@@ -53,12 +53,10 @@ nav {
 }
 
 @media (max-width: 600px) {
-    .mainContainer {
+    .mainContainer, nav{
         width: 90%;
     }
-    nav{
-        width: 90%;
-    }
+
 }
 
 .maintitle {
@@ -731,6 +729,7 @@ nav {
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     border: 2px solid #584128;
+    right: 0;
 }
 
 .dropdown-menu .option {

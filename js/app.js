@@ -273,6 +273,16 @@ class Note {
         }
 
         noteContainer.appendChild(note);
+
+        const dropdownMenu = note.querySelector('.dropdown-menu');
+        if (note.classList.contains('darkNote')) {
+            dropdownMenu.style.border = '2px solid #fff';
+            const dropdownMenuItems = dropdownMenu.querySelectorAll('*');
+            dropdownMenuItems.forEach(function (item) {
+                item.style.color = '#fff';
+            });
+        }
+        dropdownMenu.style.backgroundColor = this.color;
     }
 
 
